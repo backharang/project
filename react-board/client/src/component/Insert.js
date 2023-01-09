@@ -104,9 +104,9 @@ function Insert(){
         value={content.title}
       /><br />
       {imageUrl == null? 
-      <img src={imageUrl} height='auto' style={{display: 'none', maxWidth: '100%'}}></img>
+      <img src={imageUrl} height='auto' style={{display: 'none', maxWidth: '50%'}}></img>
       :
-      <img src={imageUrl} height='auto' style={{maxWidth: '100%'}}></img>
+      <img src={imageUrl} height='auto' style={{maxWidth: '50%'}}></img>
       }
       <input
         type="file"

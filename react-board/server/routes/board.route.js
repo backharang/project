@@ -52,7 +52,7 @@ module.exports = function(server){
 
     let storage = new multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, "D:/express/react-board/server/public/image/");
+            cb(null, "D:/work/project/react-board/server/public/image/");
         },
         filename: function (req, file, cb) {
             fn = Date.now().toString().slice(0,24)+'.png';
@@ -70,7 +70,7 @@ module.exports = function(server){
     );
 
     server.post('/deleteImg', (req, res) => {
-        fs.unlink('D:/express/react-board/server/public/image/'+req.body.original, err => {
+        fs.unlink('D:/work/project/react-board/server/public/image/'+req.body.original, err => {
             if (err) throw err;
         })
     })

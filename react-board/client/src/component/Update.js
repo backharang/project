@@ -121,9 +121,9 @@ function Update(){
             value={content.title}
           /><br />
           {imageUrl == null? 
-          <img src={imageUrl} height='auto' style={{display: 'none', maxWidth: '100%'}}></img>
+          <img src={imageUrl} height='auto' style={{display: 'none', maxWidth: '50%'}}></img>
           :
-          <img src={imageUrl.charAt(0) != 'd' ? 'http://192.168.0.34:8000/static/image/' + imageUrl : imageUrl} height='auto' style={{maxWidth: '100%'}}></img>
+          <img src={imageUrl.charAt(0) != 'd' ? 'http://192.168.0.34:8000/static/image/' + imageUrl : imageUrl} height='auto' style={{maxWidth: '50%'}}></img>
           }
           <input
             type="file"
