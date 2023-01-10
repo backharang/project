@@ -41,8 +41,8 @@ function SignUp() {
             alert('이미 사용중인 아이디입니다.');
         }else{
             axios.post('http://192.168.0.34:8000/onSignUp', {
-                    user_id: inputId,
-                    user_pw: inputPw
+                user_id: inputId,
+                user_pw: inputPw
             }).then((response)=>{
                 alert(response.data);
                 location = '/';

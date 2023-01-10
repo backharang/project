@@ -6,8 +6,12 @@ exports.boardSelect = async () => {
     return result;
 }
 
-exports.updateSelect = async (idx) => {
-    const result = await db(query.updateSelectSql, idx);
+exports.viewCount = async (idx) => {
+    await db(query.viewCountSql, idx);
+}
+
+exports.detailSelect = async (idx) => {
+    const result = await db(query.detailSelectSql, idx);
     return result;
 }
 
@@ -21,7 +25,7 @@ exports.delete = async (idx) => {
     return result;
 }
 
-exports.insert = (title, content, user_id, imgsrc) => {
-    const result = db(query.insertSql, title, content, user_id, imgsrc);
+exports.insert = (title, content, user_id, imgsrc, cdate, viewcount) => {
+    const result = db(query.insertSql, title, content, user_id, imgsrc, cdate, viewcount);
     return result;
 }

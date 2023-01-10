@@ -13,8 +13,12 @@ module.exports = function(server){
         }
     );
 
-    server.get('/getUpdate',
-        controller.updateSelect,
+    server.post("/viewCount", 
+        controller.viewCount
+    );
+
+    server.get('/getDetail',
+        controller.detailSelect,
         (req, res) => {
             res.send(res.data);
         }
@@ -27,9 +31,9 @@ module.exports = function(server){
         }
     );
 
-    server.post('/delete',(req, res, next) => {
+    server.post('/deleteBoard',(req, res, next) => {
         if(req.body.imgsrc != null){
-            fs.unlink('D:/express/react-board/server/public/image/'+req.body.imgsrc, err => {
+            fs.unlink('D:/work/project/react-board/server/public/image/'+req.body.imgsrc, err => {
                 if (err) throw err;
             })
         }
@@ -55,7 +59,7 @@ module.exports = function(server){
             cb(null, "D:/work/project/react-board/server/public/image/");
         },
         filename: function (req, file, cb) {
-            fn = Date.now().toString().slice(0,24)+'.png';
+            fn = Date.now().toString()+'.png';
             cb(null, fn);
         },
     });

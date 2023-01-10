@@ -8,9 +8,14 @@ exports.boardSelect = async (req, res, next) => {
     next();
 }
 
-exports.updateSelect = async (req, res, next) => {
+exports.viewCount = async (req, res, next) => {
+    const idx = req.body.idx
+    model.viewCount([idx]);
+}
+
+exports.detailSelect = async (req, res, next) => {
     const idx = req.query.idx;
-    const result = await model.updateSelect([idx]);
+    const result = await model.detailSelect([idx]);
     res.data = result;
     next();
 }
@@ -39,7 +44,9 @@ exports.insert = async (req, res, next) => {
     const content = req.body.content;
     const user_id = req.body.user_id;
     const imgsrc = req.body.imgsrc;
-    const data = await model.insert([title, content, user_id, imgsrc]);
+    const cdate =  new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' ' + new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds();
+    const viewcount = 0;
+    const data = await model.insert([title, content, user_id, imgsrc, cdate, viewcount]);
     const result = await util.checkChanged(data);
     res.data = '등록 ' + result;
     next();

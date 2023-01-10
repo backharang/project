@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import Insert from "./Insert";
-import Board from "./Board";
+import BoardList from "./BoardList";
+import BoardDetail from "./BoardDetail";
 import Update from "./Update";
 import Err from "./Err";
 import Test from "./Test";
@@ -22,7 +23,8 @@ function App() {
         </>
         :
         <>
-          <Route path="/" element={<Board />} />
+          <Route path="/" element={<BoardList />} />
+          <Route path="/detail" element={<BoardDetail />} />
           <Route path="/insert" element={<Insert />} />
           <Route path="/update" element={<Update />} />
           {/* <Route path="/update/:idx" element={<Update />} /> */}

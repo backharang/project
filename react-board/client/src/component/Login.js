@@ -37,9 +37,17 @@ function Login() {
             <h2>Login</h2>
             <div>
                 <div>
-                    <input type='text' placeholder="아이디" value={inputId} onChange={handleInputId} />
+                    <input type='text' placeholder="아이디" value={inputId} onChange={handleInputId} onKeyDown={(e) => {
+                        if(e.key === "Enter") {
+                            onClickLogin();
+                        }
+                    }}/>
                     <div style={{height: '15px'}}></div>
-                    <input type='password' placeholder="비밀번호" name='input_pw' value={inputPw} onChange={handleInputPw} />
+                    <input type='password' placeholder="비밀번호" name='input_pw' value={inputPw} onChange={handleInputPw} onKeyDown={(e) => {
+                        if(e.key === "Enter") {
+                            onClickLogin();
+                        }
+                    }}/>
                 </div><br />
                 <button type='button' onClick={onClickLogin} style={{width: '180px', height: '30px', display: 'inline-block'}}>로그인</button>
             </div>
