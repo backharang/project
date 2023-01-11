@@ -16,14 +16,14 @@ module.exports = function(server){
     server.post("/viewCount", 
         controller.viewCount
     );
-
+    
     server.get('/getDetail',
         controller.detailSelect,
         (req, res) => {
             res.send(res.data);
         }
     );
-
+    
     server.post('/onUpdate',
         controller.update,
         (req, res) => {

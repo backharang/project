@@ -89,7 +89,7 @@ const logOut = () => {
 };
 
 return (
-    <div className="App">
+    <div className="App"  style={{zoom: '1.3'}}>
     <h1 style={{display: 'inline-block'}}>Insert</h1>
     <div style={{display: 'inline-block', marginLeft: '10px'}}>
         <div>ID : {cookies.id}</div>  
@@ -100,6 +100,7 @@ return (
     <input
         type='text'
         placeholder='제목'
+        maxLength='50'
         onChange={getValue}
         name='title'
         value={content.title}

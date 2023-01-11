@@ -12,6 +12,7 @@ server.use(express.static(path.join(__dirname, '../client/build')));
     
 require("./routes/account.route.js")(server);
 require("./routes/board.route.js")(server);
+require("./routes/comment.route.js")(server);
 
 server.listen(PORT, ()=>{
     console.log(`running on port ${PORT}`);

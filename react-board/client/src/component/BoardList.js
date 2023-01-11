@@ -8,12 +8,12 @@ import axios from 'axios';
 function BoardList(){
 const [cookies, removeCookie] = useCookies(['id']);
 const [viewContant, setViewContant] = useState([]);
-const [loding, setLoding] = useState(true);
+const [loading, setLoading] = useState(true);
 
 useEffect(() => {
     axios.get('http://192.168.0.34:8000/getBoard').then((response)=>{
     setViewContant(response.data);
-    setLoding(false);
+    setLoading(false);
     });
 },[viewContant]);
 
@@ -45,7 +45,7 @@ const viewCount = (e) => {
 }
 
 return (
-    <div className="App">
+    <div className="App" style={{zoom: '1.3'}}>
     <h1 style={{display: 'inline-block'}}>Board</h1>
     <div style={{display: 'inline-block', marginLeft: '10px'}}>
         <div>ID : {cookies.id}</div>  
@@ -53,37 +53,37 @@ return (
         <button onClick={logOut}>로그아웃</button>
     </div>
     <div className='container'>
-        {loding == true
+        {loading == true
         ? (<h4>로딩중..</h4>)
         :viewContant[0] == null 
         ? <div>게시물 없음</div>
         : <div>
             <div>
             <b style={{display:'inline-block', width: '15%', textAlign: 'center'}}>작성자</b>
-            <b style={{display:'inline-block', width: '50%', textAlign: 'center'}}>제목</b>
-            <b style={{display:'inline-block', width: '15%', textAlign: 'center'}}>작성일</b>
+            <b style={{display:'inline-block', width: '45%', textAlign: 'center'}}>제목</b>
+            <b style={{display:'inline-block', width: '20%', textAlign: 'center'}}>작성일</b>
             <b style={{display:'inline-block', width: '8%', textAlign: 'center'}}>조회수</b>
             </div>
         {viewContant && viewContant.map(element => 
             <div key={element.idx} id={element.user_id} style={{marginBottom: '40px'}}>
             <hr />
                 <span style={{display:'inline-block', width: '15%', textAlign: 'center', float: 'left'}}>{element.user_id}</span>
-                <span style={{display:'inline-block', width: '50%', float: 'left'}}>
+                <span style={{display:'inline-block', width: '45%', float: 'left'}}>
                 <span onClick={() => viewCount(element)}>
                 <Link 
                     to={'/detail'} 
                     state= {{idx:element.idx}} 
-                    style={{display:'inline-block', textDecorationLine: 'none', maxWidth: '95.5%', color: 'black', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+                    style={{display:'inline-block', textDecorationLine: 'none', maxWidth: '92%', color: 'black', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
                     {element.title}
                 </Link>
                 </span>
                 {element.imgsrc == null? 
-                <div style={{display: 'none', maxWidth: '50%'}}></div>
+                <div style={{display: 'none', width: '2.5%'}}></div>
                 :
                 <img src={'http://192.168.0.34:8000/static/image/image.jpg'} width='2.5%' style={{margin:'5px'}}></img>
                 }
                 </span> 
-                <span style={{display:'inline-block', width: '15%', textAlign: 'center', float: 'left'}}>{element.cdate}</span>
+                <span style={{display:'inline-block', width: '20%', textAlign: 'center', float: 'left'}}>{element.cdate}</span>
                 <span style={{display:'inline-block', width: '8%', textAlign: 'center', float: 'left'}}>{element.viewcount}</span>
                 <span style={{display:'inline-block', width: '12%', textAlign: 'center', float: 'left'}}>
                 {
@@ -95,7 +95,6 @@ return (
                     :
                     <Link 
                     to={'/update'}
-                    onClick={() => this.viewCount(element)}
                     state= {{idx:element.idx}}
                     style={{textDecoration: 'none'}}><button type='button'>수정</button></Link>
                 }

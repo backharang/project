@@ -1,11 +1,9 @@
 /* eslint-disable */
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
  
 function SignUp() {
-    const navigate = useNavigate();
     const [inputId, setInputId] = useState('');
     const [inputPw, setInputPw] = useState('');
     const [check, setCheck] = useState(Boolean);
@@ -33,7 +31,9 @@ function SignUp() {
     
 
     const onClickSignUp = () => {
-        if(inputId.length<6 || inputId.length>12){
+        if(inputId.search(/\W|\s/g) > -1 || inputPw.search(/\W|\s/g) > -1){
+            alert( '특수문자 또는 공백을 입력할 수 없습니다.' );
+        }else if(inputId.length<6 || inputId.length>12){
             alert('아이디는 6~12자로 입력해주세요.');
         }else if(inputPw.length<8 || inputPw.length>20){
             alert('패스워드는 8~20자로 입력해주세요.');
@@ -51,7 +51,7 @@ function SignUp() {
     }
 
     return(
-        <div style={{textAlign: 'center', zoom: '1.5'}}>
+        <div style={{textAlign: 'center', zoom: '1.3'}}>
             <h2>Sign Up</h2>
             <div>
                 <div>

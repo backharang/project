@@ -33,7 +33,7 @@ function Login() {
     }
  
     return(
-        <div style={{textAlign: 'center', zoom: '1.5'}}>
+        <div style={{textAlign: 'center', zoom: '1.3'}}>
             <h2>Login</h2>
             <div>
                 <div>

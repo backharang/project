@@ -1,6 +1,5 @@
 const model = require('../models/board.model');
 const util = require("../commons/util");
-const multer = require("multer");
 
 exports.boardSelect = async (req, res, next) => {
     const result = await model.boardSelect();
@@ -9,7 +8,7 @@ exports.boardSelect = async (req, res, next) => {
 }
 
 exports.viewCount = async (req, res, next) => {
-    const idx = req.body.idx
+    const idx = req.body.idx;
     model.viewCount([idx]);
 }
 
