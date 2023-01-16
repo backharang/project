@@ -3,14 +3,19 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useCookies } from 'react-cookie'
+import { useSelector, useDispatch } from "react-redux";
  
 function Login() {
     const [inputId, setInputId] = useState('');
     const [inputPw, setInputPw] = useState('');
     const [cookies, setCookie] = useCookies(['id']);
 
+    // const state = useSelector((state) => state);
+    // const dispatch = useDispatch();
+
     const handleInputId = (e) => {
         setInputId(e.target.value);
+        
     }
  
     const handleInputPw = (e) => {
@@ -18,7 +23,7 @@ function Login() {
     }
     
     const onClickLogin = () => {
-        axios.post('http://192.168.0.34:8000/onLogin', {
+        axios.post('http://192.168.50.83:8000/onLogin', {
             user_id: inputId,
             user_pw: inputPw
         })

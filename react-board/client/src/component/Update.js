@@ -21,7 +21,7 @@ const imgRef = useRef();
 
 useEffect(() => {
     if(index!=null){
-    axios.get('http://192.168.0.34:8000/getDetail',{params: {idx: index}})
+    axios.get('http://192.168.50.83:8000/getDetail',{params: {idx: index}})
     .then((response)=>{
         setContent({
         title: response.data[0].title,
@@ -56,34 +56,34 @@ const formData = new FormData();
 const updateContent = ()=>{
     formData.append('img',imgRef.current.files[0]);
     if(original!=null && original!=imageUrl){
-    axios.post('http://192.168.0.34:8000/deleteImg', {
-        original: original
-    });
+        axios.post('http://192.168.50.83:8000/deleteImg', {
+            original: original
+        });
     }
     if(imageUrl == null){
-    axios.post('http://192.168.0.34:8000/onUpdate', {
-        title: content.title,
-        content: content.content,
-        idx: index,
-        imgsrc: null
+        axios.post('http://192.168.50.83:8000/onUpdate', {
+            title: content.title,
+            content: content.content,
+            idx: index,
+            imgsrc: null
         }).then(response=>{
-        alert(response.data);
+            alert(response.data);
         }).then(() => {
-        location = '/';
+            history.back();
         });
     }else{
-    axios.post('http://192.168.0.34:8000/upload', formData, {headers: {
+    axios.post('http://192.168.50.83:8000/upload', formData, {headers: {
         'Content-Type': 'multipart/form-data',
     }}).then((response)=>{
-        axios.post('http://192.168.0.34:8000/onUpdate', {
-        title: content.title,
-        content: content.content,
-        idx: index,
-        imgsrc: response.data
+            axios.post('http://192.168.50.83:8000/onUpdate', {
+            title: content.title,
+            content: content.content,
+            idx: index,
+            imgsrc: response.data
         }).then(response=>{
-        alert(response.data);
+            alert(response.data);
         }).then(() => {
-        history.back();
+            history.back();
         })
     });
     }
@@ -98,10 +98,9 @@ const getValue = e => {
 };
 
 const logOut = () => {
-    removeCookie('id').then(() => {
+    removeCookie('id'); // 쿠키 삭제
     history.back();
-    }); // 쿠키 삭제
-};
+  };
 
 return (
     <div className="App"  style={{zoom: '1.3'}}>
@@ -125,7 +124,7 @@ return (
             {imageUrl == null? 
             <img src={imageUrl} height='auto' style={{display: 'none', maxWidth: '50%'}}></img>
             :
-            <img src={imageUrl.charAt(0) != 'd' ? 'http://192.168.0.34:8000/static/image/' + imageUrl : imageUrl} height='auto' style={{maxWidth: '50%'}}></img>
+            <img src={imageUrl.charAt(0) != 'd' ? 'http://192.168.50.83:8000/static/image/' + imageUrl : imageUrl} height='auto' style={{maxWidth: '50%'}}></img>
             }
             <input
             type="file"

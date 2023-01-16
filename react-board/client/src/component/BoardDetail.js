@@ -28,7 +28,7 @@ function BoardDetail(){
 
   useEffect(() => {
     if(index!=null){
-      axios.get('http://192.168.0.34:8000/getDetail',{params: {idx: index}})
+      axios.get('http://192.168.50.83:8000/getDetail',{params: {idx: index}})
       .then((response)=>{
         setViewContant({
           idx: response.data[0].idx,
@@ -38,7 +38,7 @@ function BoardDetail(){
           content: response.data[0].content,
         });
       }).then(() => {
-        axios.get('http://192.168.0.34:8000/getComment',{params: {idx: index}})
+        axios.get('http://192.168.50.83:8000/getComment',{params: {idx: index}})
         .then((response)=>{
           setViewComment(response.data);
         })
@@ -61,7 +61,7 @@ function BoardDetail(){
       alert('본인의 게시글만 삭제 할 수 있습니다.');
     }else{
       if(confirm('삭제하시겠습니까?')){
-        axios.post('http://192.168.0.34:8000/deleteBoard', {
+        axios.post('http://192.168.50.83:8000/deleteBoard', {
           idx: viewContant.idx,
           imgsrc: viewContant.imgsrc
         }).then((response)=>{
@@ -73,12 +73,12 @@ function BoardDetail(){
   }
 
   const commentDelete = (e) => {
-    if(cookies.id != viewContant.user_id){
+    if(cookies.id != e.user_id){
       alert('본인의 댓글만 삭제 할 수 있습니다.');
     }else{
       if(confirm('삭제하시겠습니까?')){
-        axios.post('http://192.168.0.34:8000/deleteComment', {
-          cno: e
+        axios.post('http://192.168.50.83:8000/deleteComment', {
+          cno: e.cno
         }).then((response)=>{
           alert(response.data);
           setLoad(true);
@@ -91,7 +91,7 @@ function BoardDetail(){
     if(comment.replace(/ +/g, "") == ""){
       alert('내용을 입력해주세요.');
     }else{
-      axios.post('http://192.168.0.34:8000/addComment', {
+      axios.post('http://192.168.50.83:8000/addComment', {
         content: comment,
         idx: viewContant.idx,
         user_id: cookies.id,
@@ -117,7 +117,7 @@ function BoardDetail(){
           <hr/>
           <h2 style={{display: 'inline-block', maxWidth: '85%', overflowWrap: 'break-word'}}>{viewContant.title}</h2>
           <div style={{display: 'inline-block', margin: '25px 20px', float: 'right'}}>{viewContant.user_id}</div><br />
-          {viewContant.imgsrc == null? null : <img src={'http://192.168.0.34:8000/static/image/'+viewContant.imgsrc} height='auto' style={{maxWidth: '50%', textAlign: 'center'}}></img>}
+          {viewContant.imgsrc == null? null : <img src={'http://192.168.50.83:8000/static/image/'+viewContant.imgsrc} height='auto' style={{maxWidth: '50%', textAlign: 'center'}}></img>}
             <div>
               {ReactHtmlParser(viewContant.content)}
             </div>
@@ -146,9 +146,9 @@ function BoardDetail(){
               <hr style={{opacity: '0.3'}} />
               <b>{element.user_id+' '}</b>
               <span style={{fontSize: '0.8em'}}>{element.regdate}</span>
-              <pre>{element.content}</pre>
+              <pre style={{overflow: 'auto', whiteSpace: 'pre-wrap', width: '100%'}}>{element.content}</pre>
               <button type='button' 
-                onClick={() => commentDelete(element.cno)}
+                onClick={() => commentDelete(element)}
               >삭제</button>
             </div>
           )}

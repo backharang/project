@@ -19,7 +19,7 @@ function SignUp() {
 
 
     useEffect(() => {
-        axios.get('http://192.168.0.34:8000/getSignUp', {params: {user_id: inputId}})
+        axios.get('http://192.168.50.83:8000/getSignUp', {params: {user_id: inputId}})
         .then((response)=>{
             if(response.data.length==1){
                 setCheck(true);
@@ -40,12 +40,12 @@ function SignUp() {
         }else if(check){
             alert('이미 사용중인 아이디입니다.');
         }else{
-            axios.post('http://192.168.0.34:8000/onSignUp', {
+            axios.post('http://192.168.50.83:8000/onSignUp', {
                 user_id: inputId,
                 user_pw: inputPw
             }).then((response)=>{
                 alert(response.data);
-                location = '/';
+                history.back();
             })
         }
     }
@@ -55,15 +55,23 @@ function SignUp() {
             <h2>Sign Up</h2>
             <div>
                 <div>
-                    <input type='text' placeholder="아이디" value={inputId} onChange={handleInputId} />
+                    <input type='text' placeholder="아이디" value={inputId} onChange={handleInputId} onKeyDown={(e) => {
+                        if(e.key === "Enter") {
+                            onClickSignUp();
+                        }
+                    }} />
                     {check==true?<div style={{fontSize: '11px'}}>이미 사용중인 아이디 입니다.</div> : <div style={{height: '15px'}}></div>}
-                    <input type='password' placeholder="비밀번호" value={inputPw} onChange={handleInputPw} />
+                    <input type='password' placeholder="비밀번호" value={inputPw} onChange={handleInputPw} onKeyDown={(e) => {
+                        if(e.key === "Enter") {
+                            onClickSignUp();
+                        }
+                    }} />
                 </div><br />
                 <button type='button' onClick={onClickSignUp} style={{width: '180px', height: '30px', display: 'inline-block'}}>회원가입</button>
             </div>
             <br />
             <div>
-                <Link to='/' style={{textDecoration: 'none'}}>로그인</Link>
+                <Link onClick={() => history.back()} style={{textDecoration: 'none'}}>로그인</Link>
             </div>
         </div>
     )

@@ -4,7 +4,6 @@ import { useState, useRef } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useCookies } from 'react-cookie';
-import { useLocation } from 'react-router';
 import axios from 'axios';
 
 function Insert(){
@@ -45,7 +44,7 @@ const submitContent = ()=>{
         
     formData.append('img',imgRef.current.files[0]);
     if(imageUrl == null){
-        axios.post('http://192.168.0.34:8000/insert', {
+        axios.post('http://192.168.50.83:8000/insert', {
         title: content.title,
         content: content.content,
         user_id: cookies.id,
@@ -56,10 +55,10 @@ const submitContent = ()=>{
         history.back();
         });
     }else{
-        axios.post('http://192.168.0.34:8000/upload', formData, {headers: {
+        axios.post('http://192.168.50.83:8000/upload', formData, {headers: {
         'Content-Type': 'multipart/form-data',
-        }}).then((response)=>{console.log(formData)
-        axios.post('http://192.168.0.34:8000/insert', {
+        }}).then((response)=>{
+        axios.post('http://192.168.50.83:8000/insert', {
         title: content.title,
         content: content.content,
         user_id: cookies.id,
@@ -83,10 +82,9 @@ const getValue = e => {
 };
 
 const logOut = () => {
-    removeCookie('id').then(() => {
+    removeCookie('id'); // 쿠키 삭제
     history.back();
-    }) // 쿠키 삭제
-};
+  };
 
 return (
     <div className="App"  style={{zoom: '1.3'}}>
